@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto y Presupuesto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #fff;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #9c27b0;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        input:focus, select:focus {
+            border-color: #9c27b0;
+            outline: none;
+        }
+
+        .extras input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background: none;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #6e3579;
+        }
+
+        .legal-notice a {
+            color: #9c27b0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .legal-notice a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="formulario">
+       
+        <div class="form-section" id="datos-contacto">
+            <h2>Datos de Contacto</h2>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" maxlength="15" required>
+            <span class="error" id="error-nombre"></span>
+
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" maxlength="40" required>
+            <span class="error" id="error-apellidos"></span>
+
+            <label for="telefono">Teléfono de contacto:</label>
+            <input type="text" id="telefono" maxlength="9" required>
+            <span class="error" id="error-telefono"></span>
+
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" required>
+            <span class="error" id="error-correo"></span>
+        </div>
+
+        <div class="form-section" id="presupuesto">
+            <h2>Presupuesto</h2>
+
+            <label for="producto">Producto:</label>
+            <select id="producto" required>
+                <option value="" disabled selected>Seleccione un producto</option>
+                <option value="1600">ASSUS zenbook 14 s - $1600</option>
+                <option value="2000">ROG Strix G15 - $2000</option>
+                <option value="950">HP victus 15 - $950</option>
+            </select>
+
+            <label for="plazo">Plazo (días):</label>
+            <input type="number" id="plazo" min="1" required>
+
+            <div class="extras">
+                <label>Extras:</label>
+                <input type="checkbox" id="extra1" value="150">Seguro a todo riesgo (+$150)<br>
+                <input type="checkbox" id="extra2" value="90">Raton+Teclado (+$90)<br>
+                <input type="checkbox" id="extra3" value="20">Alfombrilla de ratón (+$20)
+            </div>
+
+            <label>Presupuesto final:</label>
+            <input type="text" id="presupuesto-final" readonly>
+        </div>
+
+        
+        <div class="form-section" id="condiciones">
+            <label>
+                <input type="checkbox" id="aceptar-condiciones" required>
+                Acepto las condiciones de privacidad
+            </label>
+
+            <button type="submit">Enviar</button>
+            <button type="reset">Resetear</button>
+        </div>
+    </form>
+
+    <script>
+        
+        document.getElementById('formulario').addEventListener('input', calcularPresupuesto);
+
+        function calcularPresupuesto() {
+            const producto = parseFloat(document.getElementById('producto').value) || 0;
+            const plazo = parseInt(document.getElementById('plazo').value) || 0;
+            const extras = [...document.querySelectorAll('.extras input:checked')].reduce((sum, extra) => sum + parseFloat(extra.value), 0);
+
+          
+            const subtotal = producto + extras;
+            const total = subtotal;  
+
+            document.getElementById('presupuesto-final').value = `$${total.toFixed(2)}`;
+        }
+
+        
+        document.getElementById('formulario').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let valido = true;
+
+            const nombre = document.getElementById('nombre').value;
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{1,15}$/.test(nombre)) {
+                mostrarError('error-nombre', 'Nombre inválido.');
+                valido = false;
+            } else mostrarError('error-nombre', '');
+
+            const apellidos = document.getElementById('apellidos').value;
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{1,40}$/.test(apellidos)) {
+                mostrarError('error-apellidos', 'Apellidos inválidos.');
+                valido = false;
+            } else mostrarError('error-apellidos', '');
+
+            const telefono = document.getElementById('telefono').value;
+            if (!/^\d{9}$/.test(telefono)) {
+                mostrarError('error-telefono', 'Teléfono inválido.');
+                valido = false;
+            } else mostrarError('error-telefono', '');
+
+            const correo = document.getElementById('correo').value;
+            if (!/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(correo)) {
+                mostrarError('error-correo', 'Correo electrónico inválido.');
+                valido = false;
+            } else mostrarError('error-correo', '');
+
+            if (valido) alert('Formulario enviado correctamente.');
+        });
+
+        function mostrarError(id, mensaje) {
+            document.getElementById(id).textContent = mensaje;
+        }
+    </script>
+
+</body>
+</html>

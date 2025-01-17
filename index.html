@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/9cb082065a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>paginawebfinal</title>
+</head>
+<body>
+
+    <div class="head">
+        <div class="logo">
+            <a href="#" class="logo"></a>
+        </div>
+    </div>
+
+    <header class="content header" id="inicio">
+        <h2 class="title">Winter Wizz Technologies</h2>
+        <p>
+            Desde la fábrica a disposición de los espacios de los gamers del mundo 
+            in search and evolve 
+        </p>
+    </header>
+
+    <section class="content sau" id="productos">
+        <h2 class="title">productos</h2>
+        <div class="box-container">
+            <div class="box">
+                <i class="fab fa-angular"></i>
+                <h3>ASUS Zenbook 14 S</h3>
+                <p>
+                    Procesador Intel® Core™ Ultra 7 256V 16 GB 1,8 GHz 
+                    Gráficos Intel® Arc™
+                    
+                    Memoria LPDDR5X de 16 GB 
+                    1TB M.2 NVMe™ PCIe® 4.0 SSD
+                    Display 14" 3K (2880 x 1800) OLED 120Hz de tasa de refresco 
+                </p>
+            </div>
+
+            <div class="box">
+                <i class="fab fa-apple"></i>
+                <h3>ROG Strix G15</h3>
+                <p>
+                    Procesador Mobil AMD Ryzen™ 7 6800H/HS<br>
+                    Gráfica para portátil NVIDIA® GeForce RTX™ 3050<br>
+                    Memoria 8GB DDR5-4800<br>
+                    512GB M.2 NVMe™ PCIe® 4.0 SSD<br>
+                    Display 15,6" FHD (1920 x 1080) Tasa de refresco 144 Hz
+                </p>
+            </div>
+
+            <div class="box">
+                <i class="fab fa-android"></i>
+                <h3>HP Victus 15</h3>
+                <p>
+                    Procesador Intel® Core™ i7-12650H<br>
+                    Memoria RAM DDR4-3200 MHz 16 GB<br>
+                    Disco duro SSD PCIe® NVMe™ TLC M.2 de 512 GB<br>
+                    Display 15,6" IPS, Full HD (1920 x 1080), Tasa de refresco: 60Hz<br>
+                    Controlador gráfico NVIDIA® GeForce® RTX 3050
+                </p>
+            </div>    
+        </div>
+    </section>
+
+    <section class="content about" id="nosotros">
+        <h2 class="title">nosotros</h2>
+        <p>
+            Somos una empresa dedicada al comercio de productos gaming,
+            cien por ciento comprometidos en la atención y comodidad de la comunidad gamer.
+        </p>
+    </section>
+
+    <section class="content price" id="precios">
+        <div class="contain">
+            <h2 class="title">pedido</h2>
+            <p>Consulta tu precio ahora.</p>
+        </div>
+        <a href="presupuesto.html" class="btn">Saber precio</a>
+    </section>
+
+    <!-- Aquí se insertará el contenido de contacto.html -->
+    <section class="content contact" id="contacto">
+        <h2 class="title">Contacto</h2>
+        <div id="contacto-contenido"></div> <!-- Este contenedor recibirá el contenido -->
+    </section>
+
+    <script>
+        // Función para cargar el contenido de "contacto.html"
+        fetch('contacto.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al cargar el archivo.');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('contacto-contenido').innerHTML = data; // Insertar el contenido
+            })
+            .catch(error => {
+                console.error('Hubo un problema con la carga del archivo:', error);
+            });
+    </script>
+
+    <div class="container">
+        <div class="image-container big">
+            <img src="img/1.jpg" alt="Imagen 1">
+        </div>
+        <div class="image-container small">
+            <img src="img/2.jpg" alt="Imagen 2">
+        </div>
+        <div class="image-container small">
+            <img src="img/3.jpg" alt="Imagen 3">
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i> 
+            </a>
+            <a href="https://www.twitter.com" target="_blank">
+                <i class="fab fa-twitter"></i> 
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        
+        <div class="company-info">
+            <p>Dirección: Calle Convento San Francisco IV, Castellón de la Plana, España</p>
+            <p>&copy; 2025 Winter Wizz Technologies. Todos los derechos reservados.</p>
+        </div>
+
+        <div class="legal-notice">
+            <a href="#">Aviso Legal</a>
+        </div>
+    </footer>
+
+</body>
+</html>
